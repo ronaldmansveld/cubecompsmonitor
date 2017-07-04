@@ -1,0 +1,143 @@
+body {
+	overflow: hidden;
+	font-size: 22px;
+	text-rendering: optimizelegibility;
+	-webkit-font-smoothing: antialiased;
+	-webkit-text-stroke: 1px rgba(0,0,0,0.1);
+}
+
+ccm-display-panel {
+	display: block;
+	width: 100%;
+}
+
+ccm-display-panel header {
+	width: 100%;
+	height: 5rem;
+	border-bottom: 2px solid black;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: white;
+	z-index: 10;
+}
+
+ccm-display-panel header h1 {
+	margin: 0 0 0 5%;
+	height: 5rem;
+	line-height: 5rem;
+}
+
+ccm-display-panel main {
+	width: 90%;
+	position: absolute;
+	top: 0;
+	left: 5%;
+	margin: 6rem 0 5rem;
+}
+
+main table.positions {
+	width: 100%;
+	border-collapse: collapse;
+	text-align: left;
+	position: relative;
+}
+
+main table.positions tr.even {
+	background-color: #F3F3F3;
+}
+
+main table.positions td {
+	padding: .5rem .5rem;
+}
+
+main table.positions .result {
+	font-weight: bold;
+	border-left: 1px solid black;
+}
+
+main table.positions .time {
+	text-align: right;
+}
+
+main table.positions .t1 {
+	border-left: 1px solid black;
+}
+
+main table.positions .position {
+	text-align: center;
+}
+
+main table.positions .top-position {
+	background-color: #3E3;
+}
+
+main table.positions .best {
+	padding: .2rem .4rem;
+	border-radius: .4rem;
+	background-color: #FA2;
+}
+
+main table.positions .not-counting {
+	color: #333;
+}
+main table.positions .not-counting:before {
+	content: '(';
+}
+main table.positions .not-counting:after {
+	content: ')';
+}
+
+ccm-display-panel footer {
+	height: 4rem;
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	border-top: 2px solid black;
+	background-color: white;
+	z-index: 10;
+	overflow: visible;
+}
+
+ccm-announcements-container {
+	display: block;
+	position: absolute;
+	bottom: 0;
+	height: 4rem;
+	line-height: 4rem;
+	font-size: 2.5rem;
+	white-space: nowrap;
+	width: auto;
+}
+
+.live-results {
+	width: 100%;
+	position: relative;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.live-results li {
+	position: absolute;
+	top: 0;
+	transition: top .7s ease-in-out;
+}
+
+.live-results .positions {
+	table-layout: fixed;
+}
+
+.live-results .position {
+	width: 5%;
+}
+
+.live-results .name {
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.live-results .time {
+	width: 10%;
+}

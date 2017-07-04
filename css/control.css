@@ -1,0 +1,16 @@
+ccm-control-panel {
+	display: block;
+	width: 100%;
+}
+
+ccm-control-panel table {
+	width: 100%;
+}
+
+ccm-control-panel table th {
+	text-align: left;
+}
+
+ccm-control-panel input[type=button].selected {
+	border-style: inset;
+}

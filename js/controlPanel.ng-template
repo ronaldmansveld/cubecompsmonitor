@@ -1,0 +1,87 @@
+<h1>Cubecomps Monitor Admin Panel</h1>
+
+<table>
+	<tr>
+		<td>
+			<input type="button" value="Competition" ng-click="$ctrl.setEditState('competition')" ng-class="{selected: $ctrl.editState == 'competition'}" />
+		</td>
+		<td>
+			<input type="button" value="Announcements" ng-click="$ctrl.setEditState('announcements')" ng-class="{selected: $ctrl.editState == 'announcements'}" />
+		</td>
+		<td>
+			<!--<input type="button" value="Live Results" ng-click="$ctrl.setEditState('live-results')" ng-class="{selected: $ctrl.editState == 'live-results'}" /> NOT IN USE FOR NOW, STILL HAS ISSUES-->
+		</td>
+	</tr>
+</table>
+
+<table id="ccm-display-selection-competition" ng-if="$ctrl.editState == 'competition'">
+	<tr>
+		<th>Competition: </th>
+		<td>
+			<select ng-model="$ctrl.state.competition" ng-change="$ctrl.changeCompetition()">
+				<optgroup label="In Progress">
+					<option ng-repeat="comp in $ctrl.competitions.in_progress" value="{{comp.id}}">{{comp.name}}</option>
+				</optgroup>
+				<optgroup label="Upcoming">
+					<option ng-repeat="comp in $ctrl.competitions.upcoming" value="{{comp.id}}">{{comp.name}}</option>
+				</optgroup>
+				<optgroup label="Past">
+					<option ng-repeat="comp in $ctrl.competitions.past" value="{{comp.id}}">{{comp.name}}</option>
+				</optgroup>
+			</select>
+		</td>
+	</tr>
+	<tr ng-if="$ctrl.state.competition">
+		<th>Events: </th>
+		<td>
+			<table id="ccm-event-selection">
+				<tr ng-repeat-start="event in $ctrl.events">
+					<th colspan="{{event.rounds.length}}">{{event.name}}</th>
+				</tr>
+				<tr ng-repeat-end>
+					<td ng-repeat="round in event.rounds">
+						<label>
+							<input type="checkbox" ng-value="{{round.event_id + '/' + round.id}}" ng-click="$ctrl.checkEvent(round.event_id, round.id)" ng-checked="$ctrl.state.events.indexOf(round.event_id + '/' + round.id) > -1">
+							{{round.name}}<span ng-if="round.live"> (live)</span><span ng-if="round.finished"> (finished)</span>
+						</label>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+
+<table id="ccm-display-selection-announcements" ng-if="$ctrl.editState == 'announcements'">
+	<tr ng-repeat="announcement in $ctrl.state.announcements">
+		<td class="announcement-text">{{announcement.text}}</td>
+		<td class="announcement-time"><ccm-time-left time="announcement.time"></ccm-time-left></td>
+		<td class="announcement-edit"><input type="button" value="Edit" ng-click="$ctrl.editAnnouncement($index)" /></td>
+		<td class="announcement-remove"><input type="button" value="Remove" ng-click="$ctrl.removeAnnouncement($index)" /></td>
+	</tr>
+	<tr>
+		<td colspan="4"><input type="button" value="Add announcement" ng-click="$ctrl.addAnnouncement()" /></td>
+	</tr>
+</table>
+
+<table id="ccm-display-selection-live-results" ng-if="$ctrl.editState == 'live-results'">
+	<tr>
+		<td>Title: </td>
+		<td colspan="7"><input type="text" ng-model="$ctrl.state.liveResultsTitle" ng-blur="$ctrl.persistState()"></td>
+	</tr>
+	<tr ng-repeat="competitor in $ctrl.liveResultsCompetitors track by competitor.name">
+		<td>{{competitor.name}}</td>
+		<td><input type="text" ng-model="competitor.t1" ng-blur="$ctrl.updateLiveResults()" /></td>
+		<td><input type="text" ng-model="competitor.t2" ng-blur="$ctrl.updateLiveResults()" /></td>
+		<td><input type="text" ng-model="competitor.t3" ng-blur="$ctrl.updateLiveResults()" /></td>
+		<td><input type="text" ng-model="competitor.t4" ng-blur="$ctrl.updateLiveResults()" /></td>
+		<td><input type="text" ng-model="competitor.t5" ng-blur="$ctrl.updateLiveResults()" /></td>
+		<td>{{competitor.average}}</td>
+		<td><input type="button" ng-click="$ctrl.removeLiveCompetitor($index)" value="X"></td>
+	</tr>
+	<tr>
+		<td colspan="8"><input type="button" value="Add new competitor" ng-click="$ctrl.addNewLiveCompetitor()" /></td>
+	</tr>
+	<tr>
+		<td colspan="8"><label><input type="checkbox" ng-model="$ctrl.state.useLiveResults" ng-change="$ctrl.persistState()" />Show live results</label></td>
+	</tr>
+</table>

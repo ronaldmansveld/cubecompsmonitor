@@ -1,0 +1,69 @@
+<header>
+	<h1>{{$ctrl.title}}</h1>
+</header>
+
+<main>
+	<table ng-if="$ctrl.currentDisplayItem == 'round'" class="positions">
+		<tr ng-repeat="result in $ctrl.results track by result.name" ng-class="{even: $even, odd: $odd}">
+			<td class="position" ng-class="{'top-position': result.top_position}">{{result.position}}</td>
+			<td class="name">{{result.name}} ({{result.country}})</td>
+			<td class="time t1">
+				<span class="best" ng-if="result.t1 == result.best && result.best_record">{{result.best_record}}</span>
+				<span ng-class="{'not-counting': result.t1_not_counting}">{{result.t1}}</span>
+			</td>
+			<td class="time t2" ng-if="result.hasOwnProperty('t2')">
+				<span class="best" ng-if="result.t2 == result.best && result.best_record">{{result.best_record}}</span>
+				<span ng-class="{'not-counting': result.t2_not_counting}">{{result.t2}}</span>
+			</td>
+			<td class="time t3" ng-if="result.hasOwnProperty('t3')">
+				<span class="best" ng-if="result.t3 == result.best && result.best_record">{{result.best_record}}</span>
+				<span ng-class="{'not-counting': result.t3_not_counting}">{{result.t3}}</span>
+			</td>
+			<td class="time t4" ng-if="result.hasOwnProperty('t4')">
+				<span class="best" ng-if="result.t4 == result.best && result.best_record">{{result.best_record}}</span>
+				<span ng-class="{'not-counting': result.t4_not_counting}">{{result.t4}}</span>
+			</td>
+			<td class="time t5" ng-if="result.hasOwnProperty('t5')">
+				<span class="best" ng-if="result.t5 == result.best && result.best_record">{{result.best_record}}</span>
+				<span ng-class="{'not-counting': result.t5_not_counting}">{{result.t5}}</span>
+			</td>
+			<td class="time result">
+				<span class="best" ng-if="result.average_record || result.mean_record || (result.best_record && !result.average && !result.mean)">{{result.average_record || result.mean_record || result.best_record}}</span>
+				{{result.average || result.mean || result.best}}
+			</td>
+		</tr>
+	</table>
+
+	<ul ng-if="$ctrl.currentDisplayItem == 'live-results'" class="live-results">
+		<li ng-repeat="competitor in $ctrl.liveResultsCompetitors track by competitor.name" ng-style="{top: (($index) * 2.5625) + 'rem'}">
+			<table class="positions">
+				<tr ng-class="{even: $even, odd: $odd}">
+					<td class="position" ng-class="{'top-position': $index < 3}">{{$index + 1}}</td>
+					<td class="name">{{competitor.name}}</td>
+					<td class="time t1">
+						<span ng-class="{'not-counting': competitor.t1_not_counting}">{{competitor.t1}}</span>
+					</td>
+					<td class="time t2">
+						<span ng-class="{'not-counting': competitor.t2_not_counting}">{{competitor.t2}}</span>
+					</td>
+					<td class="time t3">
+						<span ng-class="{'not-counting': competitor.t3_not_counting}">{{competitor.t3}}</span>
+					</td>
+					<td class="time t4">
+						<span ng-class="{'not-counting': competitor.t4_not_counting}">{{competitor.t4}}</span>
+					</td>
+					<td class="time t5">
+						<span ng-class="{'not-counting': competitor.t5_not_counting}">{{competitor.t5}}</span>
+					</td>
+					<td class="time result">
+						{{competitor.average}}
+					</td>
+				</tr>
+			</table>
+		</li>
+	</ul>
+</main>
+
+<footer>
+	<ccm-announcements-container ng-bind-html="$ctrl.announcementsString"></ccm-announcements-container>
+</footer>
